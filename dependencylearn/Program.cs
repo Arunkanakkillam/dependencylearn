@@ -1,5 +1,6 @@
 
 using WebApplication1.Services;
+using dependencylearn.model;
 
 namespace dependencylearn
 {
@@ -12,6 +13,7 @@ namespace dependencylearn
             // Add services to the container.
 
             builder.Services.AddControllers();
+            builder.Services.AddTransient<MyCustomMiddleware>();
             // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
             builder.Services.AddEndpointsApiExplorer();
             builder.Services.AddSwaggerGen();
@@ -25,12 +27,13 @@ namespace dependencylearn
             {
                 app.UseSwagger();
                 app.UseSwaggerUI();
+              
             }
 
             app.UseHttpsRedirection();
 
             app.UseAuthorization();
-
+            app.UseMiddleware<MyCustomMiddleware>();
 
             app.MapControllers();
 
